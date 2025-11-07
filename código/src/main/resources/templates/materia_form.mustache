@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#materia}}Editar{{/materia}}{{^materia}}Nueva{{/materia}} Materia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>{{#materia}}Editar{{/materia}}{{^materia}}Nueva{{/materia}} Materia</h1>
+        
+        <form action="{{#materia}}/materias/{{codigo_materia}}{{/materia}}{{^materia}}/materias{{/materia}}" method="POST">
+            <div class="form-group">
+                <label for="codigo_materia">Código de Materia:</label>
+                <input type="text" class="form-control" id="codigo_materia" name="codigo_materia" 
+                       value="{{#materia}}{{codigo_materia}}{{/materia}}" {{#materia}}readonly{{/materia}} required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" 
+                       value="{{#materia}}{{nombre}}{{/materia}}" required>
+            </div>
+             
+            <div class="form-group">
+                <label for="correlativas">Materias Correlativas:</label>
+                <select class="form-control select2" id="correlativas" name="correlativas" multiple>
+                    {{#materias}}
+                    <option value="{{codigo_materia}}" 
+                            {{#correlativasActuales}}
+                                {{#equals this}}selected{{/equals}}
+                            {{/correlativasActuales}}>
+                        {{nombre}} ({{codigo_materia}})
+                    </option>
+                    {{/materias}}
+                </select>
+                <small class="form-text text-muted">Puede seleccionar múltiples materias correlativas</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/materias" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+</body>
+</html>

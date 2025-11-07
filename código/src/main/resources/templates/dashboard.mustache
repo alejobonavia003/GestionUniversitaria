@@ -1,0 +1,95 @@
+{{<layout/base}}
+{{$title}}Panel de Control{{/title}}
+
+{{$content}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2">Panel de Control</h1>
+                <div>
+                    {{#username}}
+                    <span class="mr-3">Bienvenido, <strong>{{username}}</strong></span>
+                    {{/username}}
+                    <a href="/logout" class="btn btn-outline-danger">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-graduation-cap"></i> Carreras
+                    </h5>
+                    <p class="card-text">Gestiona las carreras disponibles en la institución.</p>
+                    <a href="/carreras" class="btn btn-primary">Gestionar Carreras</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-book"></i> Planes de Estudio
+                    </h5>
+                    <p class="card-text">Administra los planes de estudio de las carreras.</p>
+                    <a href="/planes" class="btn btn-primary">Gestionar Planes</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-chalkboard"></i> Materias
+                    </h5>
+                    <p class="card-text">Gestiona las materias y sus correlativas.</p>
+                    <a href="/materias" class="btn btn-primary">Gestionar Materias</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-chalkboard-teacher"></i> Profesores
+                    </h5>
+                    <p class="card-text">Administra el registro de profesores.</p>
+                    <a href="/profesor" class="btn btn-primary">Gestionar Profesores</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-users"></i> Usuarios
+                    </h5>
+                    <p class="card-text">Crea y administra cuentas de usuario.</p>
+                    <a href="/user/create" class="btn btn-primary">Gestionar Usuarios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/content}}
+
+{{$extraScripts}}
+<script>
+    $(document).ready(function() {
+        $('.nav-link[href="/dashboard"]').addClass('active');
+    });
+</script>
+{{/extraScripts}}
+{{/layout/base}}

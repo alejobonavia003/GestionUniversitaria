@@ -1,0 +1,73 @@
+<nav class="col-md-2 d-none d-md-block sidebar">
+    <div class="sidebar-header">
+        <h4>Sistema de Gestión</h4>
+    </div>
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </li>
+            {{#isAdmin}}
+            <li class="nav-item">
+                <a class="nav-link" href="/carreras">
+                    <i class="fas fa-graduation-cap"></i> Carreras
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/planes">
+                    <i class="fas fa-book"></i> Planes de Estudio
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/materias">
+                    <i class="fas fa-chalkboard"></i> Materias
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profesor">
+                    <i class="fas fa-chalkboard-teacher"></i> Profesores
+                </a>
+            </li>
+            {{/isAdmin}}
+            
+            {{#isProfesor}}
+            <li class="nav-item">
+                <a class="nav-link" href="/mis-materias">
+                    <i class="fas fa-book-reader"></i> Mis Materias
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/notas">
+                    <i class="fas fa-clipboard-check"></i> Gestión de Notas
+                </a>
+            </li>
+            {{/isProfesor}}
+            
+            {{#isEstudiante}}
+            <li class="nav-item">
+                <a class="nav-link" href="/inscripciones">
+                    <i class="fas fa-edit"></i> Inscripciones
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mis-notas">
+                    <i class="fas fa-star"></i> Mis Notas
+                </a>
+            </li>
+            {{/isEstudiante}}
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                    <i class="fas fa-user"></i> Mi Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

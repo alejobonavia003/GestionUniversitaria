@@ -1,0 +1,20 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard">Inicio</a></li>
+        {{#breadcrumbs}}
+        <li class="breadcrumb-item {{#active}}active{{/active}}">
+            {{#url}}<a href="{{url}}">{{text}}</a>{{/url}}
+            {{^url}}{{text}}{{/url}}
+        </li>
+        {{/breadcrumbs}}
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">{{pageTitle}}</h1>
+    {{#actionButton}}
+    <a href="{{url}}" class="btn btn-primary">
+        <i class="fas {{icon}}"></i> {{text}}
+    </a>
+    {{/actionButton}}
+</div>

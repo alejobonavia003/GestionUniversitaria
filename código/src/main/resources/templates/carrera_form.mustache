@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>{{#carrera}}Editar{{/carrera}}{{^carrera}}Nueva{{/carrera}} Carrera</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>{{#carrera}}Editar{{/carrera}}{{^carrera}}Nueva{{/carrera}} Carrera</h1>
+        
+        <form action="{{#carrera}}/carreras/{{cod_carrera}}{{/carrera}}{{^carrera}}/carreras{{/carrera}}" method="POST">
+            <div class="form-group">
+                <label for="cod_carrera">Código de Carrera:</label>
+                <input type="text" class="form-control" id="cod_carrera" name="cod_carrera" 
+                       value="{{#carrera}}{{cod_carrera}}{{/carrera}}" {{#carrera}}readonly{{/carrera}} required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" 
+                       value="{{#carrera}}{{nombre}}{{/carrera}}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="duracion">Duración (años):</label>
+                <input type="number" class="form-control" id="duracion" name="duracion" 
+                       value="{{#carrera}}{{duracion}}{{/carrera}}" required min="1" max="10">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/carreras" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

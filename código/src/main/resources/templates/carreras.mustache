@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>Lista de Carreras</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Lista de Carreras</h1>
+        <a href="/carreras/nueva" class="btn btn-primary mb-3">Nueva Carrera</a>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Duración (años)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#carreras}}
+                <tr>
+                    <td>{{cod_carrera}}</td>
+                    <td>{{nombre}}</td>
+                    <td>{{duracion}}</td>
+                    <td>
+                        <a href="/carreras/{{cod_carrera}}/editar" class="btn btn-sm btn-info">Editar</a>
+                        <form action="/carreras/{{cod_carrera}}" method="POST" style="display: inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/carreras}}
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
