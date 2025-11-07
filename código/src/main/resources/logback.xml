@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <!-- Directorio de logs configurable vía variable de entorno o -DLOG_DIR, por defecto 'logs' -->
+    <property name="LOG_DIR" value="${LOG_DIR:-logs}"/>
     <!-- Appender para consola -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -9,10 +11,10 @@
 
     <!-- Appender para archivo -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/sistema-gestion.log</file>
+        <file>${LOG_DIR}/sistema-gestion.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Rotación diaria de archivos -->
-            <fileNamePattern>logs/sistema-gestion.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/sistema-gestion.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- Mantener logs por 30 días -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>

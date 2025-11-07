@@ -49,7 +49,9 @@ public class CarreraRepositoryImpl implements CarreraRepository {
     @Override
     public List<Carrera> findAll() {
         return CarreraEntity.findAll().stream()
-            .map(this::mapToModel)
+            // findAll() devuelve List<Model>, por lo que el tipo del stream es Model;
+            // convertimos cada elemento a CarreraEntity antes de mapear a dominio.
+            .map(e -> mapToModel((CarreraEntity) e))
             .collect(Collectors.toList());
     }
 
