@@ -19,32 +19,39 @@ import java.io.File;
  * Configura las rutas, filtros y el inicio del servidor web.
  */
 public class App {
-    private static final Logger logger = LoggerUtil.getLogger(App.class);
-
-    public static void main(String[] args) {
-        port(8080);
-
-        // Asegurar directorio de logs antes del arranque
-        String logDir = System.getProperty("LOG_DIR");
-        if (logDir == null || logDir.isBlank()) {
-            String envLogDir = System.getenv("LOG_DIR");
-            logDir = (envLogDir != null && !envLogDir.isBlank()) ? envLogDir : "logs";
-        }
+    // Aseguramos que exista la carpeta logs antes de inicializar el logger
+    static {
         try {
-            File dir = new File(logDir);
+            File dir = new File("logs");
             if (!dir.exists()) {
                 boolean created = dir.mkdirs();
                 if (created) {
-                    System.out.println("Directorio de logs creado: " + dir.getAbsolutePath());
-                } else {
-                    System.out.println("No se pudo crear el directorio de logs: " + dir.getAbsolutePath());
+                    System.out.println("Carpeta logs creada correctamente");
                 }
             }
         } catch (Exception e) {
-            System.err.println("Advertencia: fallo al asegurar directorio de logs: " + e.getMessage());
+            System.err.println("Error al crear carpeta logs: " + e.getMessage());
+        }
+    }
+
+    private static final Logger logger = LoggerUtil.getLogger(App.class);
+
+    public static void main(String[] args) {
+        // Ejemplos de diferentes niveles de log
+        logger.debug("Iniciando configuración - Debug level");
+        logger.info("Aplicación iniciándose - Info level");
+        logger.warn("Usando configuración por defecto - Warn level");
+        
+        try {
+            throw new Exception("Error de prueba");
+        } catch (Exception e) {
+            logger.error("Error simulado para prueba - Error level", e);
         }
 
+        port(8080);
+
         DBConfigSingleton dbConfig = DBConfigSingleton.getInstance();
+        logger.debug("Configuración de base de datos: {}", dbConfig.getDbUrl());
 
         // 🔧 CONFIGURAR MODO WAL Y TIMEOUT UNA SOLA VEZ AL INICIO
         try {
