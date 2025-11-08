@@ -32,8 +32,8 @@ public class GeneralRoutes {
             model.put("errorMessage", req.queryParams("message")); 
             
             // Agregar información de usuario si está logueado (para el layout)
-            String username = req.session().attribute("username");
-            String role = req.session().attribute("role");
+            String username = req.session().attribute("name");
+            String role = req.session().attribute("userRole");
             if (username != null) {
                 model.put("username", username);
                 model.put("isAdmin", "ADMIN".equals(role));
@@ -51,19 +51,18 @@ public class GeneralRoutes {
             
             // Ya no necesitamos el check de "username == null"
             // porque el AuthMiddleware.requireLogin ya lo hizo.
-            String username = req.session().attribute("username");
-            String role = req.session().attribute("role");
+            String username = req.session().attribute("name");
+            System.out.println("DEBUGG:::: username:" + username);
+            String role = req.session().attribute("userRole");
+            System.out.println("DEBUGG:::: role:" + role);
 
             model.put("username", username);
             model.put("isAdmin", "ADMIN".equals(role));
             model.put("isProfesor", "PROFESOR".equals(role));
+
             model.put("isEstudiante", "ESTUDIANTE".equals(role));
+
             
-            // Breadcrumbs
-            Map<String, String> breadcrumb = new HashMap<>();
-            breadcrumb.put("text", "Dashboard");
-            breadcrumb.put("active", "true");
-            model.put("breadcrumbs", new Map[]{breadcrumb});
             
             return new ModelAndView(model, "dashboard.mustache");
         }, engine);
@@ -73,18 +72,13 @@ public class GeneralRoutes {
             
             // Ya no necesitamos el check de "username == null"
             String username = req.session().attribute("username");
-            String role = req.session().attribute("role");
+            String role = req.session().attribute("userRole");
             
             model.put("username", username);
             model.put("isAdmin", "ADMIN".equals(role));
             model.put("isProfesor", "PROFESOR".equals(role));
             model.put("isEstudiante", "ESTUDIANTE".equals(role));
             
-            // Breadcrumbs
-            Map<String, String> breadcrumb = new HashMap<>();
-            breadcrumb.put("text", "Mi Perfil");
-            breadcrumb.put("active", "true");
-            model.put("breadcrumbs", new Map[]{breadcrumb});
             
             return new ModelAndView(model, "profile.mustache");
         }, engine);

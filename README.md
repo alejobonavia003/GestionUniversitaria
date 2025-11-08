@@ -7,9 +7,10 @@ Sistema web para la gestión de carreras, materias, profesores y estudiantes uni
 - Gestión de carreras y planes de estudio
 - Administración de materias y correlatividades
 - Registro de profesores y estudiantes
-- Sistema de autenticación y autorización
+- Sistema de autenticación, autorización y roles
 - Logs detallados por nivel (DEBUG, INFO, WARN, ERROR)
 - Base de datos SQLite con modo WAL
+- no tiene front-end solo back y una plantilla para el dashboard
 
 ## Requisitos Previos
 
@@ -20,18 +21,21 @@ Sistema web para la gestión de carreras, materias, profesores y estudiantes uni
 ## Configuración Inicial
 
 1. Clonar el repositorio:
+
 ```bash
 git clone https://github.com/alejobonavia003/GestionUniversitaria.git
 cd GestionUniversitaria/código
 ```
 
 2. Crear la base de datos:
+
 ```bash
 mkdir -p db
 sqlite3 db/dev.db < src/main/resources/scheme.sql
 ```
 
 3. Compilar el proyecto:
+
 ```bash
 mvn clean package
 ```
@@ -41,7 +45,7 @@ mvn clean package
 Para ejecutar la aplicación:
 
 ```bash
-java --enable-native-access=ALL-UNNAMED -jar target/proye-is-1.0-SNAPSHOT.jar
+java -jar target/proye-is-1.0-SNAPSHOT.jar
 ```
 
 La aplicación estará disponible en: http://localhost:8080
@@ -66,39 +70,3 @@ código/
 ├── db/                        # Base de datos SQLite
 └── logs/                      # Archivos de log
 ```
-
-## Documentación
-
-- [Sistema de Logs](documentación/sistema_logs.md)
-- [API Rest](documentación/api.md)
-- [Base de Datos](documentación/base_datos.md)
-
-## Desarrollo
-
-### Logs
-```java
-private static final Logger logger = LoggerUtil.getLogger(MiClase.class);
-
-logger.debug("Detalles técnicos");      // En logs/debug.log
-logger.info("Operación normal");         // En logs/info.log
-logger.warn("Advertencia");              // En logs/warn.log
-logger.error("Error crítico", error);    // En logs/error.log
-```
-
-### Tests
-Ejecutar los tests:
-```bash
-mvn test
-```
-
-## Contribuir
-
-1. Fork el proyecto
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add: alguna característica'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.

@@ -51,6 +51,8 @@ public class CarreraController {
     public ModelAndView showCreateForm(Request req, Response res) {
         logger.debug("Solicitud GET /admin/carreras/nueva");
         Map<String, Object> model = new HashMap<>();
+        
+        //TODO: ta raro esto
         // Pasamos valores previos si hubo un error en un intento anterior
         model.put("codCarrera", req.queryParams("codCarrera"));
         model.put("nombre", req.queryParams("nombre"));

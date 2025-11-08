@@ -79,8 +79,9 @@ public class AuthController {
             User user = userOptional.get(); //creo un usuario con el dto
 
                 // Éxito en la autenticación
-                req.session().attribute("loggedUserDNI", user.get("dni"));
+                req.session(true).attribute("loggedUserId", user.getId()); 
                 req.session().attribute("userRole", user.getRole());
+                req.session().attribute("name", user.getName());
                 
                 logger.info("Inicio de sesion exitoso. Redirigiendo a /dashboard. Rol: {}", user.getRole());
                 res.redirect("/dashboard");
