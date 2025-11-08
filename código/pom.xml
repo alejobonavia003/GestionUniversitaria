@@ -24,6 +24,7 @@
     <slf4j.version>1.7.36</slf4j.version>
     <junit.version>4.13.2</junit.version>
     <junit.jupiter.version>5.10.0</junit.jupiter.version>
+    <mockito.version>5.11.0</mockito.version>
     <activejdbc.version>3.4-j11</activejdbc.version>
     <db.url>jdbc:sqlite:./db/dev.db</db.url>
   </properties>
@@ -92,6 +93,18 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

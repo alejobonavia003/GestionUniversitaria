@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 
 /**
  * Utilidad para manejo de JSON en la aplicación.
+ * esta clases es para transformar objetos java a json y viceversa
+ * la usamos para responder peticiones api rest con json
  */
 public class JsonUtil {
     private static final Gson gson = new Gson();

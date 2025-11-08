@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * Manejador global de errores para la aplicación.
+ * nos ayuda a centralizar el manejo de excepciones y
+ * retornar respuestas adecuadas según el tipo de error
  */
 public class ErrorHandler {
     

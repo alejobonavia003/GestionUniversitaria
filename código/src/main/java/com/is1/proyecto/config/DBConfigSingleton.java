@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+
 public final class DBConfigSingleton {
 
     private static DBConfigSingleton instance;

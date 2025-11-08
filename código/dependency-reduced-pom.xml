@@ -151,10 +151,37 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.11.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>byte-buddy</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>byte-buddy-agent</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>objenesis</artifactId>
+          <groupId>org.objenesis</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>5.11.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <properties>
     <sqlite-jdbc.version>3.45.1.0</sqlite-jdbc.version>
     <maven.compiler.source>11</maven.compiler.source>
+    <mockito.version>5.11.0</mockito.version>
     <jackson.version>2.17.1</jackson.version>
     <junit.jupiter.version>5.10.0</junit.jupiter.version>
     <spark-core.version>2.9.4</spark-core.version>

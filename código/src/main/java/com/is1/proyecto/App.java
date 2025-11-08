@@ -34,19 +34,10 @@ public class App {
         }
     }
 
+    //incializamos el logger
     private static final Logger logger = LoggerUtil.getLogger(App.class);
 
     public static void main(String[] args) {
-        // Ejemplos de diferentes niveles de log
-        logger.debug("Iniciando configuración - Debug level");
-        logger.info("Aplicación iniciándose - Info level");
-        logger.warn("Usando configuración por defecto - Warn level");
-        
-        try {
-            throw new Exception("Error de prueba");
-        } catch (Exception e) {
-            logger.error("Error simulado para prueba - Error level", e);
-        }
 
         port(8080);
 
@@ -87,7 +78,7 @@ public class App {
             }
         });
 
-        // 🚀 Rutas de la app
+        // Rutas de la app
         AuthRoutes.configure();
         UserRoutes.configure();
         ProfesorRoutes.configure();

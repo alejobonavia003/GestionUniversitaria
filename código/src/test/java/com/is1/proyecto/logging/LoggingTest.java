@@ -7,7 +7,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class LoggingTest {
     private static final Logger logger = LoggerUtil.getLogger(LoggingTest.class);

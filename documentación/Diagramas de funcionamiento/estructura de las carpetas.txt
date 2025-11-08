@@ -1,0 +1,40 @@
+src/
+├── main/java/com/is1/proyecto/
+│   ├── controllers/          # 🎮 Controladores - Manejan HTTP
+│   │   ├── AuthController.java
+│   │   ├── UserController.java
+│   │   └── DashboardController.java
+│   ├── services/             # 🧠 Services - Lógica de Negocio
+│   │   ├── AuthService.java
+│   │   ├── UserService.java
+│   │   └── OrderService.java
+│   ├── repositories/         # 💾 Repositories - Acceso a Datos
+│   │   ├── UserRepository.java
+│   │   └── OrderRepository.java
+│   ├── models/               # 🗃️ Models - Entidades de BD
+│   │   ├── User.java
+│   │   └── Order.java
+│   ├── dto/                  # 📦 DTOs - Objetos de Transferencia
+│   │   ├── request/
+│   │   │   ├── LoginRequest.java
+│   │   │   └── UserCreateRequest.java
+│   │   └── response/
+│   │       ├── UserResponse.java
+│   │       └── AuthResponse.java
+│   ├── routes/               # 🛣️ Routes - Configuración URLs
+│   │   └── RouteConfig.java
+│   ├── middlewares/          # 🔒 Middlewares - Interceptores
+│   │   ├── AuthMiddleware.java
+│   │   └── LoggingMiddleware.java
+│   └── utils/                # 🛠️ Utils - Utilidades
+│       ├── LoggerUtil.java
+│       ├── PasswordUtil.java
+│       └── ValidationUtil.java
+├── test/java/com/is1/proyecto/    # 🧪 Tests
+│   └── controllers/
+│       └── AuthControllerTest.java
+└── main/resources/
+    └── templates/            # 👁️ Vistas Mustache
+        ├── login.mustache
+        ├── dashboard.mustache
+        └── layout.mustache

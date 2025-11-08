@@ -3,6 +3,11 @@ package com.is1.proyecto.models;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
+/**
+ * la tabla users es la clave para el inicio de seccion 
+ * y el manejo de roles en la aplicacion
+ */
+
 
 
 @Table("users") // Esta anotación asoscia explícitamente el modelo 'User' con la tabla 'users' en la DB.
