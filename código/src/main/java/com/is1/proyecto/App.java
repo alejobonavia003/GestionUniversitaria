@@ -4,6 +4,7 @@ import static spark.Spark.*;
 import org.javalite.activejdbc.Base;
 import com.is1.proyecto.config.DBConfigSingleton;
 import com.is1.proyecto.routes.AuthRoutes;
+import com.is1.proyecto.routes.CarreraRoutes;
 import com.is1.proyecto.routes.UserRoutes;
 import com.is1.proyecto.routes.GeneralRoutes;
 import org.slf4j.Logger;
@@ -77,7 +78,7 @@ public class App {
         // Rutas de la app
         AuthRoutes.configure();
         UserRoutes.configure();
-        // ProfesorRoutes.configure();
+        CarreraRoutes.configure();
         GeneralRoutes.configure();
     }
 }

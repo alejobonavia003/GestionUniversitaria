@@ -14,4 +14,10 @@ public interface UserRepository {
     
     // Contrato para buscar solo por nombre (útil para verificar existencia o roles)
     Optional<User> findUserByUsername(String username);
+    
+    /**
+     * Guarda (crea o actualiza) una entidad User.
+     * @param user El usuario a guardar.
+     */
+    void save(User user);
 }

@@ -1,0 +1,83 @@
+
+
+{{$title}}Gestión de Carreras{{/title}}
+
+{{$pageTitle}}Gestión de Carreras{{/pageTitle}}
+
+{{$content}}
+
+<!-- Mensajes de Alerta (de las redirecciones) -->
+
+{{#successMessage}}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+{{successMessage}}
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/successMessage}}
+{{#errorMessage}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+{{errorMessage}}
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/errorMessage}}
+
+<div class="card shadow-sm rounded-3 border-0">
+<div class="card-body">
+<table class="table table-hover align-middle">
+<thead class="table-light">
+<tr>
+<th scope="col" class="ps-3">Código</th>
+<th scope="col">Nombre de la Carrera</th>
+<th scope="col">Duración (años)</th>
+<th scope="col" class="text-end pe-3">Acciones</th>
+</tr>
+</thead>
+<tbody>
+<!-- Itera sobre la lista 'carreras' enviada por el Controller -->
+{{#carreras}}
+<tr>
+<td class="ps-3"><strong>{{cod_carrera}}</strong></td>
+<td>{{nombre}}</td>
+<td>{{duracion}}</td>
+<td class="text-end pe-3">
+<!-- Botón Editar -->
+<a href="/admin/carreras/{{cod_carrera}}/editar" class="btn btn-sm btn-outline-primary me-2 rounded-pill px-3">
+<i class="fas fa-edit me-1"></i> Editar
+</a>
+
+                    <!-- El borrado se hace con un POST para seguridad -->
+                    <form action="/admin/carreras/{{cod_carrera}}/eliminar" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar la carrera \'{{nombre}}\'? Esta acción no se puede deshacer.');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                            <i class="fas fa-trash me-1"></i> Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {{/carreras}}
+            
+            <!-- Mensaje si no hay carreras -->
+            {{^carreras}}
+            <tr>
+                <td colspan="4" class="text-center text-muted p-4">No hay carreras registradas.</td>
+            </tr>
+            {{/carreras}}
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+{{/content}}
+
+{{$extraScripts}}
+
+<script>
+// Activa el link de la sidebar
+$(document).ready(function() {
+// Busca en la sidebar (que está en base.mustache) el link correcto
+$('.sidebar .nav-link[href="/carreras"]').addClass('active');
+});
+</script>
+
+{{/extraScripts}}

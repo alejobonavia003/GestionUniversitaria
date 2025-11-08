@@ -1,5 +1,7 @@
 package com.is1.proyecto.models;
 
+import java.util.Optional;
+
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 import org.javalite.activejdbc.annotations.BelongsTo;
@@ -11,12 +13,10 @@ import org.javalite.activejdbc.annotations.CompositePK;
  * Es una tabla de unión con atributos (nota, condicion) entre Estudiante y Materia.
  * La clave primaria es compuesta por (dni, codigo_materia).
  */
-@Table("Rindio") // Asumo que cambiaste el nombre de la tabla de Nota_Final a Rindio
-@CompositePK({"dni", "codigo_materia"})
-@BelongsToParents({
-    // Pertenece a Estudiante
+@Table("Rindio") // O "NotaFinal", la que uses
+@CompositePK({"dni", "codigo_materia"}) 
+@BelongsToParents({ // <-- ¡LA SOLUCIÓN!
     @BelongsTo(parent = Estudiante.class, foreignKeyName = "dni"),
-    // Pertenece a Materia
     @BelongsTo(parent = Materia.class, foreignKeyName = "codigo_materia")
 })
 public class NotaFinal extends Model {
@@ -66,4 +66,5 @@ public class NotaFinal extends Model {
     public Materia getMateria() {
         return parent(Materia.class);
     }
+
 }

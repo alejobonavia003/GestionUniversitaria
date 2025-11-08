@@ -5,6 +5,9 @@ import spark.Request;
 import spark.Response;
 import static spark.Spark.halt;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Contiene los filtros de SparkJava para manejar la autenticación y autorización
  * de las rutas, incluyendo el soporte para peticiones HTMX.
@@ -90,4 +93,32 @@ public class AuthMiddleware {
     // El método getBaseModel es una utilidad excelente para las Vistas, 
     // pero idealmente debería vivir en una clase de utilidades de renderizado o el propio controlador.
     // Lo mantendremos aquí por ahora, pero sabes que su uso es para Vistas (no para seguridad).
+
+     // --- 3. Utilidad para Vistas ---
+    
+    /**
+     * Crea un Map (modelo) base para las plantillas Mustache,
+     * cargando la información del usuario de la sesión.
+     * @param request La petición Spark.
+     * @return Un Map que contiene username, isAdmin, isProfesor, isEstudiante.
+     */
+    public static Map<String, Object> getBaseModel(Request request) {
+        Map<String, Object> model = new HashMap<>();
+        
+        // Asegúrate de que la clave "username" coincida con la que guardas en AuthController
+        String username = request.session().attribute("username"); 
+        String role = request.session().attribute("userRole");
+        
+        if (username != null) {
+            model.put("username", username);
+            model.put("isLogged", true);
+            model.put("isAdmin", "ADMIN".equals(role));
+            model.put("isProfesor", "PROFESOR".equals(role));
+            model.put("isEstudiante", "ESTUDIANTE".equals(role));
+        } else {
+            model.put("isLogged", false);
+        }
+        
+        return model;
+    }
 }

@@ -43,4 +43,11 @@ private static final Logger logger = LoggerUtil.getLogger(ActiveJDBCUserReposito
         User user = User.findFirst("name = ?", username);
         return Optional.ofNullable(user);
     }
+
+@Override
+    public void save(User user) {
+        // .saveIt() de ActiveJDBC maneja tanto la inserción (INSERT) 
+        // como la actualización (UPDATE) automáticamente.
+        user.saveIt();
+    }
 }
