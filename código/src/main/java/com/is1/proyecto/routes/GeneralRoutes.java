@@ -5,53 +5,33 @@ import java.util.HashMap;
 import java.util.Map;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
+import com.is1.proyecto.config.AuthMiddleware; // ¡Importamos el Middleware!
 
+/**
+ * Define las rutas generales de la aplicación (Dashboard, Perfil, Error).
+ * Protege las rutas que requieren inicio de sesión.
+ */
 public class GeneralRoutes {
     public static void configure() {
-        before((request, response) -> {
-            // Verificar si la ruta requiere autenticación
-            String path = request.pathInfo();
-            if (!path.equals("/login") && !path.equals("/user/new") && !path.contains("assets")) {
-                if (request.session(false) == null || request.session().attribute("userId") == null) {
-                    response.redirect("/login");
-                    halt();
-                }
-            }
-        });//
+        
+        MustacheTemplateEngine engine = new MustacheTemplateEngine();
 
-        get("/dashboard", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            
-            String username = req.session().attribute("username");
-            String role = req.session().attribute("role");
-            
-            if (username == null) {
-                res.redirect("/login?error=Debes iniciar sesión para acceder a esta página.");
-                return null;
-            }
+        // --- APLICACIÓN DEL MIDDLEWARE ---
+        // Aplicamos el filtro requireLogin (el más básico) a las rutas
+        // que lo necesitan, como /dashboard y /profile.
+        // El filtro manual que tenías antes se elimina para usar este.
+        before("/dashboard", AuthMiddleware.requireLogin);
+        before("/profile", AuthMiddleware.requireLogin);
+        
+        // --- RUTAS PÚBLICAS (O semi-públicas) ---
 
-            model.put("username", username);
-            model.put("isAdmin", "ADMIN".equals(role));
-            model.put("isProfesor", "PROFESOR".equals(role));
-            model.put("isEstudiante", "ESTUDIANTE".equals(role));
-            
-            // Agregar breadcrumbs
-            Map<String, String> breadcrumb = new HashMap<>();
-            breadcrumb.put("text", "Dashboard");
-            breadcrumb.put("active", "true");
-            model.put("breadcrumbs", new Map[]{breadcrumb});
-            
-            return new ModelAndView(model, "dashboard.mustache");
-        }, new MustacheTemplateEngine());
-
+        // La ruta de error debe ser pública para que AuthMiddleware pueda redirigir a ella.
         get("/error", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String errorMessage = req.queryParams("error");
-            if (errorMessage != null && !errorMessage.isEmpty()) {
-                model.put("errorMessage", errorMessage);
-            }
+            // El AuthMiddleware redirige a /error?message=...
+            model.put("errorMessage", req.queryParams("message")); 
             
-            // Agregar información de usuario si está logueado
+            // Agregar información de usuario si está logueado (para el layout)
             String username = req.session().attribute("username");
             String role = req.session().attribute("role");
             if (username != null) {
@@ -60,40 +40,56 @@ public class GeneralRoutes {
                 model.put("isProfesor", "PROFESOR".equals(role));
                 model.put("isEstudiante", "ESTUDIANTE".equals(role));
             }
-            
             return new ModelAndView(model, "error.mustache");
-        }, new MustacheTemplateEngine());
+        }, engine);
 
-        // Ruta para el perfil
-        get("/profile", (req, res) -> {
+
+        // --- RUTAS PRIVADAS (Protegidas por el Middleware) ---
+
+        get("/dashboard", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            
+            // Ya no necesitamos el check de "username == null"
+            // porque el AuthMiddleware.requireLogin ya lo hizo.
             String username = req.session().attribute("username");
             String role = req.session().attribute("role");
+
+            model.put("username", username);
+            model.put("isAdmin", "ADMIN".equals(role));
+            model.put("isProfesor", "PROFESOR".equals(role));
+            model.put("isEstudiante", "ESTUDIANTE".equals(role));
             
-            if (username == null) {
-                res.redirect("/login");
-                return null;
-            }
+            // Breadcrumbs
+            Map<String, String> breadcrumb = new HashMap<>();
+            breadcrumb.put("text", "Dashboard");
+            breadcrumb.put("active", "true");
+            model.put("breadcrumbs", new Map[]{breadcrumb});
+            
+            return new ModelAndView(model, "dashboard.mustache");
+        }, engine);
+
+        get("/profile", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            
+            // Ya no necesitamos el check de "username == null"
+            String username = req.session().attribute("username");
+            String role = req.session().attribute("role");
             
             model.put("username", username);
             model.put("isAdmin", "ADMIN".equals(role));
             model.put("isProfesor", "PROFESOR".equals(role));
             model.put("isEstudiante", "ESTUDIANTE".equals(role));
             
-            // Agregar breadcrumbs
+            // Breadcrumbs
             Map<String, String> breadcrumb = new HashMap<>();
             breadcrumb.put("text", "Mi Perfil");
             breadcrumb.put("active", "true");
             model.put("breadcrumbs", new Map[]{breadcrumb});
             
             return new ModelAndView(model, "profile.mustache");
-        }, new MustacheTemplateEngine());
+        }, engine);
 
-        // Ruta de cierre de sesión
-        get("/logout", (req, res) -> {
-            req.session().invalidate();
-            res.redirect("/login");
-            return null;
-        });
+        // La ruta de /logout se eliminó de aquí.
+        // Ya está definida (y es su lugar correcto) en AuthRoutes.java.
     }
 }

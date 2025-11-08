@@ -5,11 +5,7 @@ import org.javalite.activejdbc.Base;
 import com.is1.proyecto.config.DBConfigSingleton;
 import com.is1.proyecto.routes.AuthRoutes;
 import com.is1.proyecto.routes.UserRoutes;
-import com.is1.proyecto.routes.ProfesorRoutes;
 import com.is1.proyecto.routes.GeneralRoutes;
-import com.is1.proyecto.routes.CarreraRoutes;
-import com.is1.proyecto.routes.PlanEstudioRoutes;
-import com.is1.proyecto.routes.MateriaRoutes;
 import org.slf4j.Logger;
 import com.is1.proyecto.utils.LoggerUtil;
 import java.io.File;
@@ -81,10 +77,7 @@ public class App {
         // Rutas de la app
         AuthRoutes.configure();
         UserRoutes.configure();
-        ProfesorRoutes.configure();
+        // ProfesorRoutes.configure();
         GeneralRoutes.configure();
-        CarreraRoutes.configure();
-        PlanEstudioRoutes.configure();
-        MateriaRoutes.configure();
     }
 }
