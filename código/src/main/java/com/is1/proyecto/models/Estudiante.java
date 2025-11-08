@@ -5,30 +5,32 @@ import org.javalite.activejdbc.annotations.Table;
 import org.javalite.activejdbc.annotations.BelongsTo;
 
 /**
- * Mapea la tabla 'Profesor'.
+ * Mapea la tabla 'Estudiante'.
  * Usa ActiveJDBC para la persistencia. La relación 1:1 con Persona se gestiona
  * a través de la clave primaria compartida 'dni' y la anotación @BelongsTo.
  */
-@Table("Profesor")
-// Mapea la clave externa dni de Profesor a la clave primaria dni de Persona.
-// Para acceder a los atributos de Persona, usamos getDatosPersona() o un Join.
+@Table("Estudiante")
+// La relación BelongsTo mapea la clave externa dni de Estudiante a la clave primaria dni de Persona.
 @BelongsTo(parent = Persona.class, foreignKeyName = "dni") 
-public class Profesor extends Model { 
+public class Estudiante extends Model { 
     
-    // --- Atributos específicos de Profesor ---
+    // --- Atributos específicos de Estudiante ---
     
-    public String getIdDoc() {
-        return getString("id_doc");
+    public String getLegajo() {
+        return getString("legajo");
     }
 
-    public void setIdDoc(String idDoc) {
-        set("id_doc", idDoc);
+    public void setLegajo(String legajo) {
+        set("legajo", legajo);
     }
     
-    // El DNI se accede como cualquier campo de la tabla Profesor.
+    // El DNI se accede como cualquier campo de la tabla Estudiante.
     public int getDni() {
         return getInteger("dni");
     }
+    
+    // TODO: Falta el atributo 'estado' (evaluado/ingresante) del UML. 
+    // Lo manejaremos con un Enum o String cuando definamos las enumeraciones.
     
     // --- Métodos de Conveniencia y Relación ---
     
